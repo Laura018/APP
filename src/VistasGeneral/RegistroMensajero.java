@@ -14,6 +14,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import DAOs.Mensajeria;
+import java.sql.Time;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import logica.Convertidor;
+import logica.Horario;
 import logica.Mensajero;
 import logica.Persona;
 import logica.Telefono;
@@ -26,6 +31,11 @@ import logica.Telefono;
 public class RegistroMensajero extends javax.swing.JDialog {
 
     InicioSesion is;
+    String dia;
+    String h_inicio;
+    String h_final;
+    String tipoId;
+    long numeroId;
 
     /**
      * Creates new form Registrae
@@ -84,6 +94,8 @@ public class RegistroMensajero extends javax.swing.JDialog {
         ButtonRegresar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         TextTelefono = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        HorarioButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -125,8 +137,8 @@ public class RegistroMensajero extends javax.swing.JDialog {
         Correo.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         Correo.setForeground(new java.awt.Color(255, 255, 255));
         Correo.setText("Correo");
-        jPanel1.add(Correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, -1, -1));
-        jPanel1.add(TextFieldCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, 155, -1));
+        jPanel1.add(Correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, -1, -1));
+        jPanel1.add(TextFieldCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 155, -1));
 
         Direccion.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         Direccion.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,7 +162,7 @@ public class RegistroMensajero extends javax.swing.JDialog {
                 ButtonRegistrarmeMensajeroActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonRegistrarmeMensajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 150, 30));
+        jPanel1.add(ButtonRegistrarmeMensajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 150, 30));
 
         PrimerApellido.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         PrimerApellido.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,46 +179,46 @@ public class RegistroMensajero extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sexo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, -1, -1));
 
         ComboGenero.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         ComboGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
-        jPanel1.add(ComboGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, -1, -1));
+        jPanel1.add(ComboGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Fecha de nacimiento");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
 
         JDate.setPreferredSize(new java.awt.Dimension(80, 20));
-        jPanel1.add(JDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 140, -1));
+        jPanel1.add(JDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 140, -1));
 
         label1.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         label1.setForeground(new java.awt.Color(255, 255, 255));
         label1.setText("Tipo de transporte");
-        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, -1));
+        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, -1, -1));
 
         ComboTipoTransporte.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         ComboTipoTransporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Motocicleta", "Bicicleta" }));
-        jPanel1.add(ComboTipoTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, -1, -1));
+        jPanel1.add(ComboTipoTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Capacidad de transporte");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, -1, -1));
 
         ComboCapacidadTransporte.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         ComboCapacidadTransporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Documento", "Pequeno", "Mediano", "Grande" }));
-        jPanel1.add(ComboCapacidadTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, -1, -1));
+        jPanel1.add(ComboCapacidadTransporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Teléfono");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
 
         ComboCotiza.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         ComboCotiza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
-        jPanel1.add(ComboCotiza, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 330, -1, -1));
+        jPanel1.add(ComboCotiza, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 300, -1, -1));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
@@ -241,19 +253,32 @@ public class RegistroMensajero extends javax.swing.JDialog {
                 ButtonRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(ButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 150, 30));
+        jPanel1.add(ButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 410, 150, 30));
 
         jLabel7.setFont(new java.awt.Font("DialogInput", 1, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("¿Cotiza seguridad social?");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 300, -1, -1));
 
         TextTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextTelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(TextTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 360, 155, -1));
+        jPanel1.add(TextTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 155, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Registra Tu Horario");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, -1, -1));
+
+        HorarioButton.setText("Horario");
+        HorarioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HorarioButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(HorarioButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,8 +305,7 @@ public class RegistroMensajero extends javax.swing.JDialog {
     }//GEN-LAST:event_TextFieldNacionalidadActionPerformed
 
     private void ButtonRegistrarmeMensajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegistrarmeMensajeroActionPerformed
-    
-
+  
         if (!TextFieldPrimNom.getText().isEmpty() && !TextFieldPrimApe.getText().isEmpty()
                 && !TextFieldNumId.getText().isEmpty() && !TextFieldCorreo.getText().isEmpty()) {
 
@@ -291,8 +315,8 @@ public class RegistroMensajero extends javax.swing.JDialog {
                 Mensajero mensajero = mens.getMensajero();
                 Telefono telefono = mens.getTelefono();
 
-                String tipoId = jComboBoxTipoId.getSelectedItem().toString();
-                long numeroId = Long.parseLong(TextFieldNumId.getText());
+                tipoId = jComboBoxTipoId.getSelectedItem().toString();
+                numeroId = Long.parseLong(TextFieldNumId.getText());
                 person.setN_rol("Mensajero");
                 person.setN_primer_nombre(TextFieldPrimNom.getText());
                 person.setN_segundo_nombre(TextFieldSegNom.getText());
@@ -331,10 +355,8 @@ public class RegistroMensajero extends javax.swing.JDialog {
                 mens.IncluirTelefono();
                 JOptionPane.showMessageDialog(null, "Fué Registrado con éxito");
 
-                
-
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Ingresa un numero de identificación valido.");
+                JOptionPane.showMessageDialog(null, "Ingresa un numero valido");
             } catch (CaException ex) {
                 Logger.getLogger(RegistroMensajero.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -356,6 +378,35 @@ public class RegistroMensajero extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextTelefonoActionPerformed
 
+    private void HorarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorarioButtonActionPerformed
+        
+        Mensajeria paquets = new Mensajeria();
+        SpinnerNumberModel spnm = new SpinnerNumberModel(6,6,20,1);
+        JSpinner spinner = new JSpinner(spnm);
+        Mensajero mens = paquets.getHorarioMensajero();
+        mens.setK_tipo_id_mensajero(jComboBoxTipoId.getSelectedItem().toString());
+        mens.setK_numero_id_mensajero(Long.parseLong(TextFieldNumId.getText()));
+        for (int i = 0;i<=6;i++){
+            dia = Horario.dias[i];
+            int opt = JOptionPane.showConfirmDialog(null, "¿Trabajaras "+dia+"?", 
+                    "Dia a trabajar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if(opt == 0){
+                JOptionPane.showOptionDialog(null, spinner, "Hora inicio Jornada dia "+dia, 
+                    JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                
+                h_inicio = Convertidor.transformString(String.valueOf(spinner.getValue()));
+                
+                JOptionPane.showOptionDialog(null, spinner, "Hora final Jornada dia "+dia, 
+                    JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                h_final = Convertidor.transformString(String.valueOf(spinner.getValue()));
+                
+                mens.horMensajero[i] = new Horario (dia, Time.valueOf(h_inicio),Time.valueOf(h_final));
+                paquets.IncluirHorarioMensajero(i);
+            }
+           
+        }
+    }//GEN-LAST:event_HorarioButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -369,6 +420,7 @@ public class RegistroMensajero extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> ComboTipoTransporte;
     private javax.swing.JLabel Correo;
     private javax.swing.JLabel Direccion;
+    private javax.swing.JButton HorarioButton;
     private com.toedter.calendar.JDateChooser JDate;
     private javax.swing.JLabel NumeroDeId;
     private javax.swing.JLabel PrimerApellido;
@@ -392,6 +444,7 @@ public class RegistroMensajero extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private java.awt.Label label1;

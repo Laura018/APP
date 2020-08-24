@@ -24,9 +24,9 @@ public class ServiceLocator {
     
     ServiceLocator() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/Proyecto";
+            String url = "jdbc:postgresql://localhost:5432/Mensajeria";
             String user = "postgres";
-            String password = "20182020098lr";
+            String password = "1000502719";
             conexion = DriverManager.getConnection(url, user, password);
             JOptionPane.showMessageDialog(null, "Connected with Success");
 

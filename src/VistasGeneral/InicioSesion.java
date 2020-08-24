@@ -210,7 +210,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
                 if (inicioSesion.TipoUsuario(tipoDoc, numeroDocumento)) {
                     this.setVisible(false);
-                    InterfazCliente ic = new InterfazCliente();
+                    InterfazCliente ic = new InterfazCliente(tipoDoc, numeroDocumento);
                     
                     ic.setVisible(true);
                 } else {

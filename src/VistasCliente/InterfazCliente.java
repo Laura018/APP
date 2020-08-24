@@ -12,11 +12,14 @@ package VistasCliente;
  * @author ADMIN
  */
 public class InterfazCliente extends javax.swing.JFrame {
-
+    String tipoId;
+    long numeroId;
     /**
      * Creates new form InterfazCliente
      */
-    public InterfazCliente() {
+    public InterfazCliente(String tipo, long numero) {
+        tipoId= tipo;
+        numeroId= numero;
         initComponents();
     }
 
@@ -95,7 +98,7 @@ public class InterfazCliente extends javax.swing.JFrame {
     private void BtnSolitarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSolitarServicioActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        SolicitarServicio ss = new SolicitarServicio();
+        SolicitarServicio ss = new SolicitarServicio(tipoId, numeroId);
         ss.setVisible(true);
         
         
