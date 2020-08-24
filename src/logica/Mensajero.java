@@ -21,6 +21,13 @@ public class Mensajero {
     private String nacionalidad;
     private String n_tipo_de_transporte;
     private int v_calificacion_prom;
+    public Horario horMensajero[];
+
+    public Mensajero() {
+        horMensajero= new Horario [7];
+    }
+    
+    
 
     public String getK_tipo_id_mensajero() {
         return k_tipo_id_mensajero;

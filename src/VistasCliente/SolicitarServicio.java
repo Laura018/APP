@@ -5,16 +5,31 @@
  */
 package VistasCliente;
 
+
+import DAOs.Mensajeria;
+import java.sql.Time;
+import javax.swing.JOptionPane;
+
+import logica.Actividad;
+
+import logica.Convertidor;
+import logica.Servicio;
+
 /**
  *
  * @author ADMIN
  */
 public class SolicitarServicio extends javax.swing.JFrame {
-
+    String tipodId;
+    long numId;
     /**
      * Creates new form SolicitarServicio
+     * @param tipoId
+     * @param numId
      */
-    public SolicitarServicio() {
+    public SolicitarServicio(String tipoId, long numId) {
+        this.tipodId= tipoId;
+        this.numId = numId;
         initComponents();
     }
 
@@ -27,14 +42,261 @@ public class SolicitarServicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        ComboBoxTipoPaquete = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        SpinnerHora = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        TextFieldDir_1 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        TextFieldDir_2 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TextAreaAct_1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TextAreaAct_2 = new javax.swing.JTextArea();
+        TextFieldDir_3 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TextAreaAct_3 = new javax.swing.JTextArea();
+        CheckBoxDir_2 = new javax.swing.JCheckBox();
+        CheckBoxDir_3 = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBoxiIdaVuelta = new javax.swing.JComboBox<>();
+        jDateDiaServ = new com.toedter.calendar.JDateChooser();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBoxCiudad = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("Tipo de paquete");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
+
+        ComboBoxTipoPaquete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Documento", "Paquete pequeño.", "Paquete mediano.", "Paquete grande." }));
+        jPanel1.add(ComboBoxTipoPaquete, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 41, 154, -1));
+
+        jLabel2.setText("Dia de tu servicio");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
+
+        jLabel3.setText("Hora de inicio");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
+        jPanel1.add(SpinnerHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 110, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("¿Que debe hacer tu mensajero?");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
+        jPanel1.add(TextFieldDir_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 120, -1));
+
+        jLabel4.setText("Dirección 1:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, -1, -1));
+
+        jLabel6.setText("¿A donde tiene que ir?");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
+
+        jLabel7.setText("¿Que debe hacer alli?");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, -1, -1));
+
+        jLabel8.setText("Dirección 2:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
+        jPanel1.add(TextFieldDir_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 120, -1));
+
+        jLabel9.setText("Dirección 3:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+
+        TextAreaAct_1.setColumns(20);
+        TextAreaAct_1.setRows(5);
+        jScrollPane1.setViewportView(TextAreaAct_1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, -1, 40));
+
+        TextAreaAct_2.setColumns(20);
+        TextAreaAct_2.setRows(5);
+        jScrollPane2.setViewportView(TextAreaAct_2);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 40));
+        jPanel1.add(TextFieldDir_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 120, -1));
+
+        TextAreaAct_3.setColumns(20);
+        TextAreaAct_3.setRows(5);
+        jScrollPane3.setViewportView(TextAreaAct_3);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, 40));
+
+        CheckBoxDir_2.setText("Añadir una segunda dirección.");
+        CheckBoxDir_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxDir_2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CheckBoxDir_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
+
+        CheckBoxDir_3.setText("Añadir una tercera dirección.");
+        CheckBoxDir_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxDir_3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CheckBoxDir_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jButton1.setText("Enviar mi pedido");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 170, 40));
+
+        jLabel10.setText("¿Tu servicio es de ida y vuelta?");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
+
+        jComboBoxiIdaVuelta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
+        jPanel1.add(jComboBoxiIdaVuelta, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, -1, -1));
+        jPanel1.add(jDateDiaServ, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
+
+        jLabel11.setText("¿En que ciudad te encuentras?");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 470, -1, -1));
+
+        jComboBoxCiudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bogota", "Tunja" }));
+        jPanel1.add(jComboBoxCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 620, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CheckBoxDir_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxDir_2ActionPerformed
+        if (CheckBoxDir_2.isSelected() && !CheckBoxDir_3.isSelected()){
+            TextFieldDir_2.setEditable(true);
+            TextAreaAct_2.setEditable(true);
+            TextAreaAct_3.setEditable(false);
+            TextFieldDir_3.setEditable(false);
+        }
+        else{
+            TextFieldDir_2.setEditable(false);
+            TextAreaAct_2.setEditable(false);
+            TextAreaAct_3.setEditable(false);
+            TextFieldDir_3.setEditable(false);
+            
+        }
+        
+    }//GEN-LAST:event_CheckBoxDir_2ActionPerformed
+
+    private void CheckBoxDir_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxDir_3ActionPerformed
+        if (CheckBoxDir_2.isSelected() && CheckBoxDir_3.isSelected()){
+            TextFieldDir_3.setEditable(true);
+            TextAreaAct_3.setEditable(true);
+        }
+        else{
+            TextFieldDir_3.setEditable(false);
+            TextAreaAct_3.setEditable(false);
+        }
+    }//GEN-LAST:event_CheckBoxDir_3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        if (!TextFieldDir_1.getText().isEmpty() && !TextAreaAct_1.getText().isEmpty()){
+            try{
+                Mensajeria mens = new Mensajeria ();
+                Servicio serv = mens.getServicio();
+                Actividad act = mens.getActividad();
+                
+                serv.setN_tipo_de_paquete(ComboBoxTipoPaquete.getSelectedItem().toString());
+                java.sql.Date sqlDate = convert(jDateDiaServ.getDate());
+                
+                serv.setF_dia_servicio(sqlDate);
+                String hora = Convertidor.transformString(String.valueOf(SpinnerHora.getValue()));
+                serv.setH_hora_inicio(Time.valueOf(hora));
+                serv.setI_estado_servicio("I");
+                String ida_vuelta = jComboBoxiIdaVuelta.getSelectedItem().toString();
+                
+                String n_ciudad = jComboBoxCiudad.getSelectedItem().toString();
+                
+                if ("Bogota".equals(n_ciudad)){
+                    serv.setK_id_ciudad(110111);
+                    if ("SI".equals(ida_vuelta)){
+                        serv.setV_costo_servicio(16000);
+                    }
+                    else {
+                        serv.setV_costo_servicio(24000);
+                    }
+                }
+                else if("Tunja".equals(n_ciudad)){
+                    
+                    serv.setK_id_ciudad(150001);
+                    if ("SI".equals(ida_vuelta)){
+                        serv.setV_costo_servicio(10000);
+                    }
+                    else {
+                        serv.setV_costo_servicio(15000);
+                    }
+                }
+                
+                if (ida_vuelta.equals("SI"))
+                    serv.setI_estado_servicio("V");
+                else{
+                    serv.setI_estado_servicio("F");
+                }
+                //long num = mens.ObtenerCiudad(n_ciudad);
+                mens.RegistrarServicio("CC",1007456789,tipodId,numId,serv.getK_id_ciudad());
+                JOptionPane.showMessageDialog(null, "aiudaaa");
+                
+                
+                
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Algo paso");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox CheckBoxDir_2;
+    private javax.swing.JCheckBox CheckBoxDir_3;
+    private javax.swing.JComboBox<String> ComboBoxTipoPaquete;
+    private javax.swing.JSpinner SpinnerHora;
+    private javax.swing.JTextArea TextAreaAct_1;
+    private javax.swing.JTextArea TextAreaAct_2;
+    private javax.swing.JTextArea TextAreaAct_3;
+    private javax.swing.JTextField TextFieldDir_1;
+    private javax.swing.JTextField TextFieldDir_2;
+    private javax.swing.JTextField TextFieldDir_3;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBoxCiudad;
+    private javax.swing.JComboBox<String> jComboBoxiIdaVuelta;
+    private com.toedter.calendar.JDateChooser jDateDiaServ;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
+    
+    private static java.sql.Date convert(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
 }

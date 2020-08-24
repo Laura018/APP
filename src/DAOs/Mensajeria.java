@@ -6,6 +6,7 @@
 package DAOs;
 
 import DBConnection.CaException;
+import java.sql.SQLException;
 import logica.*;
 
 /**
@@ -18,13 +19,20 @@ public class Mensajeria {
     private ClienteDAO clienteDAO;
     private MensajeroDAO mensajeroDAO;
     private TelefonoDAO telefonoDAO;
+    private HorarioDAO horarioDAO;
+    private ServicioDAO servicioDAO;
+    private CiudadDAO ciudadDAO;
+    private ActividadDAO actividadDAO;
 
     public Mensajeria() {
         this.personaDAO = new PersonaDAO();
         this.clienteDAO = new ClienteDAO();
         this.mensajeroDAO = new MensajeroDAO();
         this.telefonoDAO = new TelefonoDAO();
-
+        this.horarioDAO = new HorarioDAO();
+        this.servicioDAO = new ServicioDAO();
+        this.ciudadDAO = new CiudadDAO();
+        this.actividadDAO = new ActividadDAO();
     }
 
     //PERSONA
@@ -53,6 +61,25 @@ public class Mensajeria {
     public Mensajero getMensajero()  {
         return mensajeroDAO.getMensajero();
     }
+    
+    //HORARIO
+    public void IncluirHorarioMensajero(int i){
+        horarioDAO.InsertarHorarioMensajero(i);
+    }
+    
+    public Mensajero getHorarioMensajero(){
+        return horarioDAO.getHoramen();
+    }
+    
+    //SERVICIO
+    public void RegistrarServicio(String tipoId, long numId, String tipo_id_cli,
+            long num_id_cli, long id_ciudad){
+        servicioDAO.RegistrarServicio(tipoId,numId,tipo_id_cli,num_id_cli,id_ciudad);
+    }
+    
+    public Servicio getServicio(){
+        return servicioDAO.getServ();
+    }
 
     //TELÉFONO
     public void IncluirTelefono() throws CaException {
@@ -61,6 +88,20 @@ public class Mensajeria {
 
     public Telefono getTelefono() {
         return telefonoDAO.getTelefono();
+    }
+    
+    //CIUDAD
+    public long ObtenerCiudad(String n_ciudad) throws SQLException{
+        return ciudadDAO.obtenerCiudad(n_ciudad);
+    }
+    
+    //ACTIVIDAD
+    public int ObtenerNumActividades(int cod_servicio){
+        return actividadDAO.ObtenerNumeroActividades(cod_servicio);
+    }
+    
+    public Actividad getActividad(){
+        return actividadDAO.getAct();
     }
 
 }
